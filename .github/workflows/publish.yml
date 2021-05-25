@@ -27,4 +27,5 @@ jobs:
           KEY: ${{ secrets.SSHKEY }}
           script: |
             sudo kill -9 `sudo lsof -t -i:9000`
-            docker run -p 80:9000 -it docker.pkg.github.com/4llower/yandex-alice-anecdotes
+            echo ${{ secrets.GITHUB_TOKEN }} | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+            docker run -p 80:9000 -it docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
