@@ -10,15 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Docker Authorize
-        env:
-          DOCKER_USER: ${{secrets.DOCKER_USER}}
-          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-        run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-
-      - name: Docker Publish
-        run: docker push ${{secrets.DOCKER_USER}}/yandex-alice-anecdotes
+      - name: Build and push docker image
+        uses: jerray/publish-docker-action@master
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: 4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
+          auto_tag: true
 
       - name: Build and Run
         uses: appleboy/ssh-action@master
@@ -28,4 +27,4 @@ jobs:
           KEY: ${{ secrets.SSHKEY }}
           script: |
             sudo kill -9 `sudo lsof -t -i:9000`
-            docker run -p 80:9000 -it ${{secrets.DOCKER_USER}}/yandex-alice-anecdotes
+            docker run -p 80:9000 -it docker.pkg.github.com/4llower/yandex-alice-anecdotes
