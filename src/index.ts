@@ -1,11 +1,23 @@
+import express from 'express'
 import * as dotenv from 'dotenv'
 dotenv.config()
 
 import { TelegramParser } from './parser/telegram'
-;(async () => {
-  const telegramParser = new TelegramParser('myfavoritejumoreski')
-  await telegramParser.authenticate()
+
+const app = express()
+const port = 9000
+const telegramParser = new TelegramParser('myfavoritejumoreski')
+
+app.get('/', (_req, res) => {
+  res.send('Hello World!')
+})
+
+app.get('/jokes', async (req, res) => {
   const jokes = await telegramParser.loadJokes()
-  console.log(jokes)
-  await telegramParser.close()
-})()
+  res.send(jokes)
+})
+
+app.listen(port, async () => {
+  console.log('listening on port')
+  await telegramParser.authenticate()
+})
