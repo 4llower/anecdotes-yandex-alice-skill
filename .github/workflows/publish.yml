@@ -16,7 +16,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: 4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
+          repository: ${{ github.actor }}/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
           auto_tag: true
 
       - name: Build and Run
@@ -27,5 +27,5 @@ jobs:
           KEY: ${{ secrets.SSHKEY }}
           script: |
             fuser 9000/tcp
-            docker login https://docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
-            docker run -p 80:9000 -it docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
+            docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin ${{ secrets.GITHUB_TOKEN }}
+            docker run -p 80:9000 -it docker.pkg.github.com/${{ github.actor }}/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
