@@ -26,6 +26,6 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           KEY: ${{ secrets.SSHKEY }}
           script: |
-            sudo kill -9 `sudo lsof -t -i:9000`
+            fuser 9000/tcp
             docker login https://docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
             docker run -p 80:9000 -it docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
