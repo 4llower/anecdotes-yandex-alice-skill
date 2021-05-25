@@ -27,5 +27,6 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           KEY: ${{ secrets.SSHKEY }}
           script: |
+            cd /opt/app
             yarn
             yarn start
