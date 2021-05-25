@@ -26,4 +26,6 @@ jobs:
           host: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.USERNAME }}
           KEY: ${{ secrets.SSHKEY }}
-          script: yarn && yarn start
+          script: |
+            yarn
+            yarn start
