@@ -9,7 +9,7 @@ const port = 9000
 const telegramParser = new TelegramParser('myfavoritejumoreski')
 
 app.get('/', (_req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World! !')
 })
 
 app.get('/jokes', async (_req, res) => {
