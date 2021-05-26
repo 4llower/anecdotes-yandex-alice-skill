@@ -12,7 +12,7 @@ app.get('/', (_req, res) => {
   res.send('Hello World!')
 })
 
-app.get('/jokes', async (req, res) => {
+app.get('/jokes', async (_req, res) => {
   const jokes = await telegramParser.loadJokes()
   res.send(jokes)
 })
