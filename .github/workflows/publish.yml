@@ -27,5 +27,5 @@ jobs:
           KEY: ${{ secrets.SSHKEY }}
           script: |
             fuser 9000/tcp
-            docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin ${{ secrets.GITHUB_TOKEN }}
+            docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin ${{ secrets.GITHUB_TOKEN }}
             docker run -p 80:9000 -it docker.pkg.github.com/${{ github.actor }}/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
