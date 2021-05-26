@@ -8,11 +8,12 @@
   "private": false,
   "type": "module",
   "scripts": {
-    "start": "rm -rf dist && tsc && node dist/index.js"
+    "start": "rm -rf dist && tsc && node dist/index.js",
+    "test:parser": "rm -rf dist && tsc && node --experimental-specifier-resolution=node dist/index.js"
   },
   "dependencies": {
     "concurrently": "^6.1.0",
-    "dotenv": "^9.0.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "input": "^1.0.1",
