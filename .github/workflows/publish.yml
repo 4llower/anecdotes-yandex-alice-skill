@@ -26,5 +26,7 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           KEY: ${{ secrets.SSHKEY }}
           script: |
-            fuser 9000/tcp
-            docker run -p 80:9000 docker.pkg.github.com/${{ github.actor }}/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
+            docker kill $(docker ps -a)
+            docker rm $(docker ps -a)
+            docker pull docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
+            docker run -p 80:9000 docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
