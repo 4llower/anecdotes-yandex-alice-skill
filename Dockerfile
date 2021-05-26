@@ -6,6 +6,8 @@ WORKDIR /app/
 
 RUN yarn
 
+COPY . .
+
 EXPOSE 9000
 
 CMD ["yarn", "start"]
