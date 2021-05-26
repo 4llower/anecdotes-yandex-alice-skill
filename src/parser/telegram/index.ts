@@ -1,11 +1,11 @@
 import { TelegramClient } from 'telegram'
 import { StringSession } from 'telegram/sessions'
-import { Parser } from '../parser'
+import { Parser } from '../types'
 
 const CONNECTION_RETRIES = 5
 const MESSAGES_LIMIT = 100
 
-export class TelegramParser extends Parser {
+export class TelegramParser implements Parser {
   apiId = +(process.env.APP_ID || 0)
   apiHash = process.env.APP_API_HASH || ''
   sessionString = process.env.SESSION_STRING
@@ -14,7 +14,6 @@ export class TelegramParser extends Parser {
   sourceChannel: string
 
   constructor(source: string) {
-    super()
     const stringSession = new StringSession(this.sessionString)
     this.client = new TelegramClient(stringSession, this.apiId, this.apiHash, {
       connectionRetries: CONNECTION_RETRIES,
