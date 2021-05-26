@@ -26,7 +26,8 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           KEY: ${{ secrets.SSHKEY }}
           script: |
+            echo ${{ secrets.ENV }} > .env
             docker kill $(docker ps -a)
             docker rm $(docker ps -a)
             docker pull docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
-            docker run -p 80:9000 docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
+            docker run -d -p 80:9000 --env-file .env docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
