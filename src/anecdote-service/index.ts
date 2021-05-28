@@ -8,6 +8,9 @@ export class AnecdoteService implements IAnecdoteService {
   }
   async getRandomAnecdote() {
     const anecdotes = await this.firebaseService.getAll()
-    return anecdotes[Math.floor(Math.random() * (anecdotes.length - 1))].message
+
+    return (
+      await anecdotes[Math.floor(Math.random() * (anecdotes.length - 1))].get()
+    ).data().message
   }
 }

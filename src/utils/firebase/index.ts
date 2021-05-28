@@ -1,6 +1,6 @@
 import admin from 'firebase-admin'
 import { IFirebaseService } from './types'
-import { IAnecdote, IAnecdoteDto } from '~/types'
+import { IAnecdoteDto } from '~/types'
 
 export class FirebaseService implements IFirebaseService {
   firestore
@@ -19,18 +19,6 @@ export class FirebaseService implements IFirebaseService {
   }
 
   async getAll() {
-    const documents = await this.firestore
-      .collection('anecdotes')
-      .listDocuments()
-
-    const result: IAnecdote[] = []
-
-    for (const document of documents) {
-      const snapshot = await document.get()
-      const data = snapshot.data()
-      result.push({ message: data.message, date: new Date(data.date) })
-    }
-
-    return result
+    return await this.firestore.collection('anecdotes').listDocuments()
   }
 }
