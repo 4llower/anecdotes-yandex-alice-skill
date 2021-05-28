@@ -1,23 +1,15 @@
 import * as express from 'express'
-import * as dotenv from 'dotenv'
-dotenv.config()
-
-import { TelegramParser } from './parser/telegram'
+import { AnecdoteService } from './anecdote-service'
 
 const app = express()
 const port = 9000
-const telegramParser = new TelegramParser('myfavoritejumoreski')
 
-app.get('/', (_req, res) => {
-  res.send('Hello World! !')
-})
+const anecdoteService = new AnecdoteService()
 
-app.get('/jokes', async (_req, res) => {
-  const jokes = await telegramParser.loadJokes()
-  res.send(jokes)
+app.get('/', async (_req, res) => {
+  res.send(await anecdoteService.getRandomAnecdote())
 })
 
 app.listen(port, async () => {
-  console.log('listening on port')
-  await telegramParser.authenticate()
+  console.log('Listening on port', port)
 })

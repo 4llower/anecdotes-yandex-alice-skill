@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "outDir": "./dist",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./src/*"]
     },
     "importHelpers": true,
     "noEmitHelpers": true,
@@ -17,11 +17,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "allowSyntheticDefaultImports": true,
-    "jsx": "react",
     "lib": [
-      "es2017",
-      "dom",
-      "esnext.asynciterable"
+      "es6",
+      "es2015.iterable"
     ],
     "module": "commonjs",
     "moduleResolution": "node",

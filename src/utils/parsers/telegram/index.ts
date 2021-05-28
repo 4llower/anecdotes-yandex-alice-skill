@@ -1,14 +1,16 @@
 import { TelegramClient } from 'telegram'
 import { StringSession } from 'telegram/sessions'
-import { Parser } from '../types'
+import { IParser } from '../types'
+import { config } from '../../../config'
+import { serializeAnecdoteMessage } from './helpers'
 
 const CONNECTION_RETRIES = 5
 const MESSAGES_LIMIT = 100
 
-export class TelegramParser implements Parser {
-  apiId = +(process.env.APP_ID || 0)
-  apiHash = process.env.APP_API_HASH || ''
-  sessionString = process.env.SESSION_STRING
+export class TelegramParser implements IParser {
+  apiId = config.appId
+  apiHash = config.appApiHash
+  sessionString = config.stringSession
 
   client: TelegramClient
   sourceChannel: string
@@ -29,12 +31,15 @@ export class TelegramParser implements Parser {
     await this.client.disconnect()
   }
 
-  async loadJokes() {
+  async getAnecdotes() {
     const messages = await this.client.getMessages(this.sourceChannel, {
       limit: MESSAGES_LIMIT,
     })
     return messages
-      .map((message) => message.message)
-      .filter((message) => message?.length)
+      .filter((response) => response?.message.length)
+      .map(({ message, date }) => ({
+        message: serializeAnecdoteMessage(message),
+        date: new Date(date * 1000),
+      }))
   }
 }

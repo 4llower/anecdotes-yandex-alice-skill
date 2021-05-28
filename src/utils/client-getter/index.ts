@@ -1,12 +1,13 @@
-import readline from 'readline'
+import { createInterface } from 'readline'
+import { IGetter } from './types'
 
-const rl = readline.createInterface({
+const rl = createInterface({
   input: process.stdin,
   output: process.stdout,
 })
 
-export class UserInput {
-  async readLine(prompt: string) {
+export class ClientGetter implements IGetter {
+  async read(prompt: string) {
     return await new Promise((resolve) => {
       rl.question(prompt, function (userInput) {
         rl.close()

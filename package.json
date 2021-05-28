@@ -7,15 +7,18 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "rm -rf dist && tsc && node dist/index.js",
-    "test:parser": "rm -rf dist && tsc && node dist/index.js"
+    "start": "rm -rf dist && tsc && GOOGLE_APPLICATION_CREDENTIALS=\"/home/ihar/yandex-alice-anecdotes-315114-51fc14db3e5c.json\" node dist/index.js",
+    "upload:firebase": "rm -rf dist && tsc && GOOGLE_APPLICATION_CREDENTIALS=\"/home/ihar/yandex-alice-anecdotes-315114-51fc14db3e5c.json\" node dist/scripts/uploadJokesToFirebase.js"
   },
   "dependencies": {
     "concurrently": "^6.1.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "firebase-admin": "8.13.0",
     "fs": "^0.0.1-security",
     "input": "^1.0.1",
+    "moment": "^2.29.1",
+    "momentjs": "^2.0.0",
     "nodemon": "^2.0.7",
     "path": "^0.12.7",
     "prettier": "^2.2.1",
