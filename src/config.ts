@@ -1,15 +1,14 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 interface IConfig {
   appId: number
   appApiHash: string
-  botAuthToken: string
   stringSession: string
 }
 
-const { parsed: env } = require('dotenv').config()
-
 export const config: IConfig = {
-  appId: +env.APP_ID,
-  appApiHash: env.APP_API_HASH,
-  botAuthToken: env.BOT_AUTH_TOKEN,
-  stringSession: env.SESSION_STRING,
+  appId: +(process.env.APP_ID || 0),
+  appApiHash: process.env.APP_API_HASH || '',
+  stringSession: process.env.SESSION_STRING || '',
 }
