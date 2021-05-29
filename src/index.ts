@@ -3,13 +3,14 @@ import { AnecdoteService } from './anecdote-service'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import { createServer } from 'https'
-
 import { includes, lowerCase, sample } from 'lodash'
+import { json } from 'body-parser'
 
+const jsonParser = json()
 const app = express()
 const anecdoteService = new AnecdoteService()
 
-app.all('/', async (req, res) => {
+app.all('/', jsonParser, async (req, res) => {
   let statusCode = 200
 
   if (req.method !== 'POST') {
