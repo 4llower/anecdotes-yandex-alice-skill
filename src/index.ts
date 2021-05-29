@@ -9,7 +9,7 @@ import { includes, lowerCase, sample } from 'lodash'
 const app = express()
 const anecdoteService = new AnecdoteService()
 
-app.get('/', async (req, res) => {
+app.all('/', async (req, res) => {
   let statusCode = 200
 
   if (req.method !== 'POST') {
