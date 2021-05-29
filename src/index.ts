@@ -96,6 +96,8 @@ app.all('/', jsonParser, async (req, res) => {
     'некст',
     'следующий',
     'next',
+    'давай анекдот',
+    'Давай анекдот',
   ]
 
   for (let item of playWords) {
