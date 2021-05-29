@@ -1,11 +1,12 @@
 import * as express from 'express'
 import { AnecdoteService } from './anecdote-service'
+import { readFileSync } from 'fs'
+import { resolve } from 'path'
+import { createServer } from 'https'
 
 import { includes, lowerCase, sample } from 'lodash'
 
 const app = express()
-const port = 9000
-
 const anecdoteService = new AnecdoteService()
 
 app.get('/', async (req, res) => {
@@ -168,6 +169,15 @@ app.get('/', async (req, res) => {
   })
 })
 
-app.listen(port, async () => {
+const port = 9000
+
+const options = {
+  key: readFileSync(resolve(__dirname, '..', './ssl/privatekey.pem')),
+  cert: readFileSync(resolve(__dirname, '..', './ssl/certificate.pem')),
+}
+
+const server = createServer(options, app)
+
+server.listen(port, () => {
   console.log('Listening on port', port)
 })
