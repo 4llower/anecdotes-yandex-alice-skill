@@ -2,10 +2,10 @@ import { TelegramClient } from 'telegram'
 import { StringSession } from 'telegram/sessions'
 import { IParser } from '../types'
 import { config } from '../../../config'
-import { serializeAnecdoteMessage } from './helpers'
+import { isAdvertisement, serializeAnecdoteMessage } from './helpers'
 
 const CONNECTION_RETRIES = 5
-const MESSAGES_LIMIT = 100
+const MESSAGES_LIMIT = 20
 
 export class TelegramParser implements IParser {
   apiId = config.appId
@@ -36,7 +36,8 @@ export class TelegramParser implements IParser {
       limit: MESSAGES_LIMIT,
     })
     return messages
-      .filter((response) => response?.message.length)
+      .filter((response) => response?.message?.length)
+      .filter((response) => !isAdvertisement(response.message))
       .map(({ message, date }) => ({
         message: serializeAnecdoteMessage(message),
         date: new Date(date * 1000),
