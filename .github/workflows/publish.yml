@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: [Image] Build & Push
+      - name: (Image) Build & Push
         uses: jerray/publish-docker-action@master
         with:
           username: ${{ github.actor }}
@@ -18,7 +18,7 @@ jobs:
           repository: ${{ github.actor }}/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
           auto_tag: true
 
-      - name: [Container] Create & Run
+      - name: (Container) Create & Run
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
