@@ -20,13 +20,13 @@ jobs:
 
       - name: (Container) Create & Run
         uses: appleboy/ssh-action@master
+        continue-on-error: true
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
           script: |
             echo "${{ secrets.ENV }}" > .env
-            docker kill $(docker ps -a)
-            docker rm $(docker ps -a)
+            docker rm $(docker stop $(docker ps -a -q --filter ancestor=anecdotes-yandex-alice-skill/yandex-alice-anecdotes --format="{{.ID}}"))
             docker pull docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
             docker run --mount type=bind,source=/home/credentials/,target=/home/credentials/ -d -p 443:9000 --env-file .env docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
