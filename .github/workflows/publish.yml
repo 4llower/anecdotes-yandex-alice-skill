@@ -26,6 +26,6 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           script: |
             echo "${{ secrets.ENV }}" > .env
-            if [[ $(docker ps -a -q --filter ancestor=anecdotes-yandex-alice-skill/yandex-alice-anecdotes --format="{{.ID}}") ]]; then docker rm $(docker stop $(docker ps -a -q --filter ancestor=anecdotes-yandex-alice-skill/yandex-alice-anecdotes --format="{{.ID}}")); fi
+            if [[ $(docker ps -a -q --filter ancestor=docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes --format="{{.ID}}") ]]; then docker rm $(docker stop $(docker ps -a -q --filter ancestor=docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes --format="{{.ID}}")); fi
             docker pull docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
             docker run --mount type=bind,source=/home/credentials/,target=/home/credentials/ -d -p 443:9000 --env-file .env docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
