@@ -4,13 +4,12 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
 
-      - name: Build and push docker image
+      - name: [Image] Build & Push
         uses: jerray/publish-docker-action@master
         with:
           username: ${{ github.actor }}
@@ -19,7 +18,7 @@ jobs:
           repository: ${{ github.actor }}/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
           auto_tag: true
 
-      - name: Build and Run
+      - name: [Container] Create & Run
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -30,4 +29,4 @@ jobs:
             docker kill $(docker ps -a)
             docker rm $(docker ps -a)
             docker pull docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
-            docker run --mount type=bind,source=/home/firebase.json,target=/home/firebase.json -d -p 443:9000 --env-file .env docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes
+            docker run --mount type=bind,source=/home/credentials/,target=/home/credentials/ -d -p 443:9000 --env-file .env docker.pkg.github.com/4llower/anecdotes-yandex-alice-skill/yandex-alice-anecdotes

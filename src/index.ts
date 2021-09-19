@@ -178,8 +178,8 @@ app.all('/', jsonParser, async (req, res) => {
 const port = 9000
 
 const options = {
-  key: readFileSync(resolve(__dirname, '..', './ssl/privatekey.pem')),
-  cert: readFileSync(resolve(__dirname, '..', './ssl/certificate.pem')),
+  key: readFileSync(resolve(__dirname, '..', '/home/credentials/privatekey.pem')),
+  cert: readFileSync(resolve(__dirname, '..', '/home/credentials/certificate.pem')),
   requestCert: true,
   rejectUnauthorized: false,
 }

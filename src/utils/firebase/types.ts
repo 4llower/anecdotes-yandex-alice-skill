@@ -1,7 +1,8 @@
 import admin from 'firebase-admin'
+import { IAnecdote } from '../../types'
+
 import Firestore = admin.firestore.Firestore
 import App = admin.app.App
-import { IAnecdote } from '../../types'
 import DocumentReference = admin.firestore.DocumentReference
 
 export interface IFirebaseService {

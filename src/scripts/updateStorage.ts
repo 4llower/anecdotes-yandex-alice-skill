@@ -41,4 +41,4 @@ telegramParser
       console.error('[Request]', e)
     }
   })
-  .catch(() => console.log('[Auth] Invalid credentials'))
+  .catch(() => console.error('[Auth] Invalid credentials'))

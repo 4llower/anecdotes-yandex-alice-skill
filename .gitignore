@@ -3,15 +3,17 @@ node_modules/
 
 # production
 dist/
+ssl
+.env
+firebase.json
 
 # misc
 .idea
+.vscode
+
 .DS_Store
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .eslintcache
-dist
-.vscode
 
-.env
